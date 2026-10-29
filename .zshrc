@@ -100,6 +100,13 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# autocompletion
+autoload -U compinit; compinit
+
+# homebrew
+export PATH="/opt/homebrew/bin:$PATH"
+export PATH="/opt/homebrew/sbin:$PATH"
+
 # nvim
 alias vim="nvim"
 
@@ -119,7 +126,8 @@ eval "$(direnv hook zsh)"
 export PATH="$HOME/.local/bin:$PATH"
 
 # pyenv
-eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 # cargo
 source "$HOME/.cargo/env"
@@ -141,11 +149,35 @@ export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 # bun completions
-[ -s "/Users/mohamedhedi.bejaoui/.bun/_bun" ] && source "/Users/mohamedhedi.bejaoui/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-# set wallpaper
-wallpaper () { automator -i "${1}" ~/.config/osx/workflows/setDesktopPic.workflow }
+autoload -Uz compinit
+zstyle ':completion:*' menu select
+fpath+=~/.zfunc
+
+compinit -D
+
+# aws completion
+complete -C '/opt/homebrew/bin/aws_completer' aws
+
+# Created by `pipx` on 2025-03-18 17:07:55
+export PATH="$PATH:$HOME/.local/bin"
+
+# kiro
+[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
+
+# fnm
+eval "$(fnm env --use-on-cd --shell zsh)"
+
+# colima
+export DOCKER_HOST=unix://$HOME/.colima/default/docker.sock
+# Ryuk mounts the daemon's socket; DOCKER_HOST above is a macOS path the VM lacks
+export TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE=/var/run/docker.sock
+
+# opencode
+export PATH=$HOME/.opencode/bin:$PATH
+

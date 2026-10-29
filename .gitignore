@@ -1,1 +1,19 @@
-emby-server
+# ~/.config is shared with every app, and apps drop credentials and machine
+# state here (acli, jira, stripe, gh, wireshark...). Ignore everything and
+# track only what's listed: a new app's folder stays out of this public repo
+# until you opt it in.
+/*
+!/.gitignore
+!/.zshrc
+!/Brewfile
+!/bat/
+!/git/
+!/htop/
+!/kitty/
+!/nvim/
+!/osx/
+!/ripgrep/
+!/skhd/
+!/tmux/
+!/yabai/
+/tmux/plugins/
